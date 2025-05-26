@@ -1,4 +1,3 @@
-// app/chats/layout.tsx
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import type { ReactNode } from "react";

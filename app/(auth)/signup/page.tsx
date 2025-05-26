@@ -1,11 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { IoChatbox } from "react-icons/io5";
+import SignUpForm from "@/components/SignUpForm";
 
-export default function SignupPage() {
+export default async function SignupPage() {
     return (
         <>
             <div className="flex h-screen w-full items-center justify-center bg-green-700 px-4">
@@ -20,23 +19,7 @@ export default function SignupPage() {
                         <CardDescription className="text-center">Get started with your account</CardDescription>
                     </CardHeader>
                     <CardContent className="flex flex-col gap-y-4">
-                        <div className="flex flex-col gap-y-2">
-                            <Label>Full Name</Label>
-                            <Input placeholder="John Doe" required/>
-                        </div>
-                        <div className="flex flex-col gap-y-2">
-                            <Label>Phone Number</Label>
-                            <Input placeholder="+919999999999" required/>
-                        </div>
-                        <div className="flex flex-col gap-y-2">
-                            <Label>Email</Label>
-                            <Input placeholder="johndoe@email.com" required/>
-                        </div>
-                        <div className="flex flex-col gap-y-2">
-                            <Label>Password</Label>
-                            <Input type="password" placeholder="******" required/>
-                        </div>
-                        <Button className="bg-green-700 font-bold">Sign Up</Button>
+                        <SignUpForm />
                         <div className="text-center">
                             <p className="text-muted-foreground">
                                 Already have an account?

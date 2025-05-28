@@ -40,26 +40,22 @@ const ChatContainer = () => {
         <div className="flex-1 flex flex-col overflow-auto">
             <ChatHeader />
             <div className="flex flex-col gap-2 p-4 overflow-y-auto flex-1" style={{backgroundImage: "url('/chat_bg.png')", backgroundSize: "cover", backgroundRepeat: "repeat"}}>
-                {!messages ? (
-                    <p className="text-center font-bold text-gray-400">No messages</p>
-                ) : (
-                    messages.map((msg) => {
-                        const isSender = msg.sender_id === user?.id;
-                        return (
-                            <div key={msg.id} className={`flex ${isSender ? "justify-end" : "justify-start"}`}>
-                                <div className={`max-w-xs md:max-w-md rounded-lg p-3 text-sm shadow ${isSender ? "bg-green-100 text-black" : "bg-white text-black"}`}>
-                                    <p>{msg.content}</p>
-                                    <p className="text-xs text-gray-500 text-right mt-1">
-                                        {new Date(msg.created_at).toLocaleDateString([], {
-                                            hour: "2-digit",
-                                            minute: "2-digit"
-                                        })}
-                                    </p>
-                                </div>
+                {messages.map((msg) => {
+                    const isSender = msg.sender_id === user?.id;
+                    return (
+                        <div key={msg.id} className={`flex ${isSender ? "justify-end" : "justify-start"}`}>
+                            <div className={`max-w-xs md:max-w-md rounded-lg p-3 text-sm shadow ${isSender ? "bg-green-100 text-black" : "bg-white text-black"}`}>
+                                <p>{msg.content}</p>
+                                <p className="text-xs text-gray-500 text-right mt-1">
+                                    {new Date(msg.created_at).toLocaleDateString([], {
+                                        hour: "2-digit",
+                                        minute: "2-digit"
+                                    })}
+                                </p>
                             </div>
-                        )
-                    })
-                )}
+                        </div>
+                    )
+                })}
             </div>
             <MessageInput />
         </div>

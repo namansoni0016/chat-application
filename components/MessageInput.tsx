@@ -32,7 +32,7 @@ const MessageInput = () => {
             <form onSubmit={handleSend}>
                 <div className="flex items-center mb-4">
                     <input type="text" value={text} onChange={(e) => setText(e.target.value)} placeholder="Message..." className="flex-grow outline-none border-none bg-transparent font-bold text-gray-500" />
-                    <button type="submit" className="text-green-700 hover:text-green-600 text-xl ml-2">
+                    <button type="submit" className="text-green-600 hover:text-green-500 text-xl ml-2">
                         <IoMdSend />
                     </button>
                 </div>
@@ -48,7 +48,7 @@ const MessageInput = () => {
                     </div>
                     <Badge variant="outline" className="flex justify-between rounded-md gap-20 py-1">
                         <div className="flex flex-row gap-1 font-bold">
-                            <p className="border border-green-700 rounded-full"><GiPeriscope className="text-green-700 text-lg" /></p> Periskope
+                            <p className="border border-green-600 rounded-full"><GiPeriscope className="text-green-600 text-lg" /></p> Periskope
                         </div>
                         <div>
                             <IoIosArrowUp />

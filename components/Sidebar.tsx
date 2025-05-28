@@ -13,7 +13,6 @@ import { IoMdSettings } from "react-icons/io";
 import { TbStarsFilled } from "react-icons/tb";
 import { TbLayoutSidebarLeftExpandFilled } from "react-icons/tb";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { Button } from "./ui/button";
 import { createClient } from "@/utils/supabase/server";
 import Logout from "./Logout";
 

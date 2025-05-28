@@ -8,19 +8,17 @@ import { useRouter } from "next/navigation"
 import { signIn } from "@/actions/auth";
 
 const LogInForm = () => {
-    const [ error, setError ] = useState<string | null>(null);
     const [ loading, setLoading ] = useState<boolean>(false);
     const router = useRouter();
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setLoading(true);
-        setError(null);
         const formData = new FormData(event.currentTarget);
         const result = await signIn(formData);
         if(result.status === "success") {
             router.push("/chats");
         } else {
-            setError(result.status);
+            console.log(result.status);
         }
         setLoading(false);
     }

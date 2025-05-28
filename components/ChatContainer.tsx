@@ -8,16 +8,28 @@ import { getMessages } from "@/actions/chats";
 import { createClient } from "@/utils/supabase/client";
 import { User } from "@supabase/supabase-js";
 
+type Message = {
+    id: string,
+    sender_id: string,
+    receiver_id: string,
+    content: string,
+    created_at: string,
+    messages_sender_id_fkey?: {
+        id: string,
+        name?: string,
+        phone?: string,
+    };
+};
+
 const ChatContainer = () => {
     const [ user, setUser ] = useState<User | null>(null);
-    const [ messages, setMessages ] = useState<any[]>([]);
+    const [ messages, setMessages ] = useState<Message[]>([]);
     const selectedUser = useChatStore((state) => state.selectedUser);
     useEffect(() => {
         if(selectedUser?.id) {
             getMessages(selectedUser.id).then((res) => {
                 if(Array.isArray(res)) {
                     setMessages(res);
-                    console.log(messages);
                 } else {
                     console.error("Error fetching messages: ", res.message);
                     setMessages([]);

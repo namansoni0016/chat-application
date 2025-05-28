@@ -42,6 +42,14 @@ export async function signUp(formData: FormData) {
             user: null
         }
     }
+    const { error: insertError } = await supabase.from("user_profiles").insert({
+        email: data?.user?.email,
+        name: credentials.name,
+        phone: credentials.phone
+    });
+    if(insertError) {
+        return { status: insertError?.message, user: null };
+    }
     revalidatePath("/login", "layout");
     return { status: "success", user: data.user};
 }
@@ -57,20 +65,6 @@ export async function signIn(formData: FormData) {
         return {
             status: error?.message,
             user: null,
-        }
-    }
-    const { data: existingUser } = await supabase.from("user_profiles").select("*").eq("email", credentials?.email).limit(1).single();
-    if(!existingUser) {
-        const { error: insertError } = await supabase.from("user_profiles").insert({
-            email: data?.user.email,
-            name: data?.user?.user_metadata?.name,
-            phone: data?.user?.user_metadata?.phone,
-        });
-        if(insertError) {
-            return {
-                status: insertError?.message,
-                user: null,
-            };
         }
     }
     revalidatePath("/chats", "layout");

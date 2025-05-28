@@ -11,11 +11,17 @@ import { RiFolderImageFill } from "react-icons/ri";
 import { MdChecklist } from "react-icons/md";
 import { IoMdSettings } from "react-icons/io";
 import { TbStarsFilled } from "react-icons/tb";
-import { RiContactsBookUploadFill } from "react-icons/ri";
+import { TbLayoutSidebarLeftExpandFilled } from "react-icons/tb";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { Button } from "./ui/button";
+import { createClient } from "@/utils/supabase/server";
+import Logout from "./Logout";
 
-const Sidebar = () => {
+const Sidebar = async () => {
+    const supabase = await createClient();
+    const { data: { user }} = await supabase.auth.getUser();
     return (
-        <div className="h-screen w-16 border-r shadow-sm flex flex-col items-center py-4 justify-between">
+        <div className="h-screen w-14 border-r shadow-sm flex flex-col items-center py-4 justify-between">
             <div className="relative">
                 <div className="bg-green-600 text-white p-2 rounded-full relative mb-8">
                     <GiPeriscope size={20} />
@@ -37,12 +43,20 @@ const Sidebar = () => {
                     <IconWrapper><RiContactsBookFill size={20} /></IconWrapper>
                     <IconWrapper><RiFolderImageFill size={20} /></IconWrapper>
                     <IconWrapper><MdChecklist size={20} /></IconWrapper>
-                    <IconWrapper><IoMdSettings size={20} /></IconWrapper>
+                    <Popover>
+                        <PopoverTrigger>
+                            <IconWrapper><IoMdSettings size={20} /></IconWrapper>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-full flex flex-col items-center">
+                            <p className="font-bold text-gray-700 border-b mb-4">{user?.user_metadata.name}</p>
+                            <Logout />
+                        </PopoverContent>
+                    </Popover>
                 </div>
             </div>
             <div className="flex flex-col items-center gap-4">
                 <IconWrapper><TbStarsFilled size={20} /></IconWrapper>
-                <IconWrapper><RiContactsBookUploadFill size={20} /></IconWrapper>
+                <IconWrapper><TbLayoutSidebarLeftExpandFilled size={20} /></IconWrapper>
             </div>
         </div>
     );

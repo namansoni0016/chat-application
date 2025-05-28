@@ -29,19 +29,25 @@ export async function sendMessages(recieverId: string | undefined, content: stri
             receiver_id: recieverId,
             content,
         },
-    ]);
+    ]).select().single();
     if(error) {
         return { status: "error", message: error.message };
     }
     return data;
 }
 
-export async function getMessages(otherId: string | undefined) {
+export async function getMessages(userId: string) {
     const supabase = await createClient();
-    const currentUser = await supabase.auth.getUser();
-    const currentUserId = currentUser.data.user?.id;
-    const { data, error } = await supabase.from("messages").select("*")
-        .or(`and(sender_id.eq.${currentUserId}, receiver_id.eq.${otherId}),and(sender_id.eq.${otherId}, receiver_id.eq.${currentUserId})`)
+    const { data, error } = await supabase.from("messages")
+        .select(`
+            id,
+            sender_id,
+            receiver_id,
+            content,
+            created_at,
+            messages_sender_id_fkey (id, name, phone)
+            `)
+        .or(`sender_id.eq.${userId},receiver_id.eq.${userId}`)
         .order("created_at", { ascending: true });
     if(error) {
         return { status: "error", message: error.message };

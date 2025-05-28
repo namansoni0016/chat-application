@@ -14,7 +14,7 @@ import { useState } from "react";
 import { sendMessages } from "@/actions/chats";
 import { useChatStore } from "@/store/chatStore";
 
-const MessageInput = () => {
+const MessageInput = ({onMessageSent} : {onMessageSent: () => void }) => {
     const selectedUser = useChatStore((state) => state.selectedUser);
     const [ text, setText ] = useState("");
     const handleSend = async(e: React.FormEvent) => {
@@ -23,6 +23,7 @@ const MessageInput = () => {
         try {
             await sendMessages(selectedUser?.id, text);
             setText("");
+            onMessageSent();
         } catch (error) {
             console.error("Failed to send message: ", error);
         }
@@ -37,7 +38,7 @@ const MessageInput = () => {
                     </button>
                 </div>
                 <div className="flex items-center justify-between">
-                    <div className="flex gap-6 text-gray-700 text-lg">
+                    <div className="flex gap-6 text-gray-600 text-lg">
                         <FiPaperclip />
                         <VscSmiley />
                         <FaRegClock />

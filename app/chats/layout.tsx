@@ -12,7 +12,7 @@ export default async function ChatsLayout({ children }: { children: ReactNode })
     }
     return (
         <div className="flex h-screen">
-            <div className="w-16">
+            <div className="w-14">
                 <Sidebar />
             </div>
             <div className="flex-1 flex flex-col">
